@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productivity Dashboard</title>
+  
+  <link rel="stylesheet" href="dash.css" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+  <canvas id="bg-canvas"></canvas>
+  
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+      <h2>Welcome Back</h2>
+      <p style="margin-bottom: 1.5rem; opacity: 0.8;">Enter credentials to access dashboard</p>
+      
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Username" autocomplete="off" />
+        <input type="password" id="password" placeholder="Password" />
+      </div>
+
+      <button class="btn btn-special" style="width: 100%; margin-top: 1rem;" onclick="handleLogin()">
+        Unlock Dashboard
+      </button>
+      
+      <p id="login-error" class="error-text">❌ Invalid Username or Password</p>
+    </div>
+  </div>
+  <div class="container" id="main-dashboard" style="display: none;">
+    <div class="header">
+      <div class="clock" id="clock">00:00:00</div>
+      <div class="greeting" id="greeting">Good Morning, Productive!</div>
+      <div class="controls">
+        <button class="btn btn-special" id="darkModeToggle">🌙 Dark Mode</button>
+        <button class="btn btn-special" id="refreshQuote">🔄 New Quote</button>
+        <button class="btn btn-special" id="saveAll">💾 Save All</button>
+        <button class="btn btn-special" onclick="location.reload()">🔒 Logout</button>
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <div class="card">
+        <h3>⏱️ Timer</h3>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <div class="timer-controls">
+          <button class="btn" id="startTimer">▶️ Start</button>
+          <button class="btn" id="pauseTimer">⏸️ Pause</button>
+          <button class="btn" id="resetTimer">🔄 Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>✅ Task Manager</h3>
+        <div class="task-input">
+          <input type="text" id="taskInput" placeholder="Add a new task..." />
+          <select id="taskPriority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button class="btn" id="addTask">Add</button>
+        </div>
+        <div class="task-list" id="taskList"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>💧 Water Intake</h3>
+        <div class="water-tracker">
+          <div class="water-goal">
+            <span>Goal: 12 glasses (3000ml)</span>
+          </div>
+          <div class="water-progress">
+            <div class="water-glasses" id="waterGlasses">
+              </div>
+          </div>
+          <div class="water-stats">
+            <span id="waterCount">0</span> / 12 glasses
+            <span id="waterMl">(0ml / 3000ml)</span>
+          </div>
+          <div class="water-controls">
+            <button class="btn" id="addWater">➕ Add Glass</button>
+            <button class="btn" id="resetWater">🔄 Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📝 Quick Notes</h3>
+        <textarea class="notes-area" id="notesArea" placeholder="Write your notes here..."></textarea>
+      </div>
+
+      <div class="card">
+        <h3>💭 Daily Inspiration</h3>
+        <div class="quote-container">
+          <div class="quote-text" id="quoteText"></div>
+          <div class="quote-author" id="quoteAuthor"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📅 Calendar</h3>
+        <table class="calendar-table" id="calendar"></table>
+      </div>
+
+      <div class="card">
+        <h3>⏰ Event Countdown</h3>
+        <input type="datetime-local" class="event-input" id="eventDate" />
+        <div class="countdown-display" id="countdownDisplay">
+          Select an event date
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Productivity Stats</h3>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number" id="completedTasks">0</div>
+          <div class="stat-label">Tasks Completed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="timerSessions">0</div>
+          <div class="stat-label">Timer Sessions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="focusTime">0</div>
+          <div class="stat-label">Focus Minutes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="totalTasks">0</div>
+          <div class="stat-label">Total Tasks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <div>© 2025 All Rights Reserved | Made with ❤️</div>
+  </footer>
+
+  <script src="dash.js"></script>
+</body>
+</html>
